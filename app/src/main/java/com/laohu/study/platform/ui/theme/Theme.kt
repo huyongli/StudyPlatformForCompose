@@ -14,13 +14,15 @@ private val secondary = Color(0xFF0171C5)
 private val DarkColorPalette = darkColors(
     primary = primary,
     primaryVariant = primary_variant,
-    secondary = secondary
+    secondary = secondary,
+    background = Color.White
 )
 
 private val LightColorPalette = lightColors(
     primary = primary,
     primaryVariant = primary_variant,
-    secondary = secondary
+    secondary = secondary,
+    background = Color.White
 )
 
 @Composable

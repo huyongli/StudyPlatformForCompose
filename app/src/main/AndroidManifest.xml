@@ -23,6 +23,7 @@
         </activity>
         <activity
             android:name=".page.main.MainActivity"
+            android:theme="@style/Theme.StudyPlatform"
             android:launchMode="singleTask" />
     </application>
 
