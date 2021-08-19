@@ -1,6 +1,7 @@
 package com.laohu.study.platform.helper
 
 import android.content.Context
+import com.laohu.study.platform.di.DatabasePath
 import com.laohu.study.platform.extensions.orFalse
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
@@ -13,12 +14,13 @@ import java.io.InputStream
 import java.io.OutputStream
 import javax.inject.Inject
 
-private const val DB_NAME = "course.db"
-
 @ActivityScoped
 class DBHelper @Inject constructor(@ApplicationContext val context: Context) {
+    @DatabasePath
+    @Inject
+    lateinit var databasePath: String
     private val dbFile: File by lazy {
-        File(context.getExternalFilesDir(null), "db/$DB_NAME")
+        File(databasePath)
     }
 
     suspend fun initializeDatabase() {
@@ -36,7 +38,7 @@ class DBHelper @Inject constructor(@ApplicationContext val context: Context) {
     }
 
     private fun copyDatabase() {
-        val inputStream: InputStream = context.assets.open(DB_NAME)
+        val inputStream: InputStream = context.assets.open("database/course.db")
         val outputStream: OutputStream = FileOutputStream(dbFile)
         val buffer = ByteArray(1024)
         var length: Int
