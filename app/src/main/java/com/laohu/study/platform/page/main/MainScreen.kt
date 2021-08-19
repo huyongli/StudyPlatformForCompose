@@ -53,8 +53,7 @@ fun MainTopAppBar(openDrawer: () -> Unit) {
         title = {
             Text(
                 text = stringResource(R.string.national_study_platform),
-                style = MaterialTheme.typography.h6,
-                color = Color.Black
+                style = MaterialTheme.typography.subtitle1
             )
         },
         navigationIcon = {

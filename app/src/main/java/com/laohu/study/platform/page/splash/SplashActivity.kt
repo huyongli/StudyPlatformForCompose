@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.view.WindowCompat
 import com.laohu.study.platform.extensions.handled
 import com.laohu.study.platform.helper.DBHelper
 import com.laohu.study.platform.page.main.MainActivity
@@ -32,7 +31,6 @@ class SplashActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             StudyPlatformTheme {
                 SplashScreen()
