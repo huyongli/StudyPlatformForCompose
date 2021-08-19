@@ -1,9 +1,9 @@
-package com.laohu.study.platform.main
+package com.laohu.study.platform.page.main
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.laohu.study.platform.ui.theme.CourseStudyPlatformTheme
+import com.laohu.study.platform.ui.theme.StudyPlatformTheme
 
 @Composable
 fun DrawerScreen() {
@@ -13,7 +13,7 @@ fun DrawerScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun PreviewDrawerScreen() {
-    CourseStudyPlatformTheme {
+    StudyPlatformTheme {
         DrawerScreen()
     }
 }
