@@ -1,5 +1,6 @@
 package com.laohu.study.platform.page.splash
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,16 +13,38 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import com.laohu.study.platform.extensions.handled
+import com.laohu.study.platform.helper.DBHelper
+import com.laohu.study.platform.page.main.MainActivity
 import com.laohu.study.platform.ui.component.Loading
 import com.laohu.study.platform.ui.theme.StudyPlatformTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SplashActivity : ComponentActivity() {
+    @Inject
+    lateinit var dbHelper: DBHelper
+    @Inject
+    lateinit var coroutineScope: CoroutineScope
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             StudyPlatformTheme {
                 SplashScreen()
+            }
+        }
+        coroutineScope.launch {
+            try {
+                dbHelper.initializeDatabase()
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                finish()
+            } catch (throwable: Throwable) {
+                throwable.handled()
             }
         }
     }

@@ -23,10 +23,10 @@ class DBHelper @Inject constructor(@ApplicationContext val context: Context) {
 
     suspend fun initializeDatabase() {
         if (dbFile.exists()) {
-            delay(1000)
+            delay(2000)
         } else {
             withContext(Dispatchers.IO) {
-                if (dbFile.parentFile?.exists().orFalse()) {
+                if (!dbFile.parentFile?.exists().orFalse()) {
                     dbFile.parentFile?.mkdirs()
                 }
                 dbFile.createNewFile()
