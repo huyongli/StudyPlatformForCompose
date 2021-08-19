@@ -1,13 +1,13 @@
 package com.laohu.study.platform.ui.component
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+
 
 private val colors =
     listOf(Color.Red, Color.Transparent, Color.Blue, Color.Yellow, Color.Green, Color.Magenta)
@@ -29,17 +29,53 @@ private fun getColor(index: Int): Color {
 
 @Composable
 fun Loading() {
-    var index by remember {
+    var state by remember {
         mutableStateOf(0f)
     }
-    val coroutineScope = rememberCoroutineScope()
-    SideEffect {
-        coroutineScope.launch {
-            delay(1000)
-            index += 1
-        }
+    LaunchedEffect(state) {
+        delay(500)
+        state += 1
     }
-    LoadingScreen(6.dp, 6.dp, index)
+    val factor by animateFloatAsState(targetValue = state)
+    LoadingScreen(6.dp, 6.dp, factor)
+}
+
+@Composable
+private fun LoadingScreen(radius: Dp, space: Dp, factor: Float) {
+    val width: Dp = radius.times(2).times(2).plus(space)
+    val height: Dp = radius.times(2).times(3).plus(space.times(2))
+    Canvas(modifier = Modifier.size(width, height)) {
+        drawCircle(
+            color = getColor(0),
+            radius = radius.toPx(),
+            center = calOffset(radius, space, factor)
+        )
+        drawCircle(
+            color = getColor(1),
+            radius = radius.toPx(),
+            center = calOffset(radius, space, factor + 1)
+        )
+        drawCircle(
+            color = getColor(2),
+            radius = radius.toPx(),
+            center = calOffset(radius, space, factor + 2)
+        )
+        drawCircle(
+            color = getColor(3),
+            radius = radius.toPx(),
+            center = calOffset(radius, space, factor + 3)
+        )
+        drawCircle(
+            color = getColor(4),
+            radius = radius.toPx(),
+            center = calOffset(radius, space, factor + 4)
+        )
+        drawCircle(
+            color = getColor(5),
+            radius = radius.toPx(),
+            center = calOffset(radius, space, factor + 5)
+        )
+    }
 }
 
 private fun DrawScope.calOffset(radius: Dp, space: Dp, factor: Float): Offset {
@@ -79,47 +115,6 @@ private fun DrawScope.calOffset(radius: Dp, space: Dp, factor: Float): Offset {
                 radius.times(3).plus(space).minus(step).toPx()
             )
         }
-    }
-}
-
-@Composable
-private fun LoadingScreen(radius: Dp, space: Dp, index: Float) {
-    val width: Dp = radius.times(2).times(2).plus(space)
-    val height: Dp = radius.times(2).times(3).plus(space.times(2))
-    Canvas(modifier = Modifier.size(width, height)) {
-        drawCircle(
-            color = getColor(0),
-            radius = radius.toPx(),
-            center = Offset(radius.toPx(), radius.toPx())
-        )
-        drawCircle(
-            color = getColor(1),
-            radius = radius.toPx(),
-            center = Offset(radius.times(3).plus(space).toPx(), radius.toPx())
-        )
-        drawCircle(
-            color = getColor(2),
-            radius = radius.toPx(),
-            center = Offset(radius.times(3).plus(space).toPx(), radius.times(3).plus(space).toPx())
-        )
-        drawCircle(
-            color = getColor(3),
-            radius = radius.toPx(),
-            center = Offset(
-                radius.times(3).plus(space).toPx(),
-                radius.times(5).plus(space.times(2)).toPx()
-            )
-        )
-        drawCircle(
-            color = getColor(4),
-            radius = radius.toPx(),
-            center = Offset(radius.toPx(), radius.times(5).plus(space.times(2)).toPx())
-        )
-        drawCircle(
-            color = getColor(5),
-            radius = radius.toPx(),
-            center = Offset(radius.toPx(), radius.times(3).plus(space).toPx())
-        )
     }
 }
 
