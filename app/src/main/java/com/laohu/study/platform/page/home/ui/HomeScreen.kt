@@ -1,4 +1,4 @@
-package com.laohu.study.platform.page.home
+package com.laohu.study.platform.page.home.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,7 +35,7 @@ import com.laohu.study.platform.ui.theme.StudyPlatformTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen() {
+fun HomeScreen() {
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -45,14 +45,14 @@ fun MainScreen() {
         },
         topBar = {
             val scope = rememberCoroutineScope()
-            MainTopAppBar(openDrawer = {
+            HomeTopAppBar(openDrawer = {
                 scope.launch {
                     scaffoldState.drawerState.open()
                 }
             })
         },
         bottomBar = {
-            MainBottomNavigation(onBottomNavItemChanged = {
+            HomeBottomNavigation(onBottomNavItemChanged = {
 
             })
         },
@@ -65,7 +65,7 @@ fun MainScreen() {
 }
 
 @Composable
-fun MainTopAppBar(openDrawer: () -> Unit) {
+fun HomeTopAppBar(openDrawer: () -> Unit) {
     TopAppBar(
         title = {
             Text(
@@ -82,7 +82,7 @@ fun MainTopAppBar(openDrawer: () -> Unit) {
 }
 
 @Composable
-fun MainBottomNavigation(
+fun HomeBottomNavigation(
     onBottomNavItemChanged: (CoursePhase) -> Unit,
     homeViewModel: HomeViewModel = viewModel()
 ) {
@@ -113,8 +113,8 @@ fun MainBottomNavigation(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-private fun PreviewMainContent() {
+private fun PreviewHomeScreen() {
     StudyPlatformTheme {
-        MainScreen()
+        HomeScreen()
     }
 }

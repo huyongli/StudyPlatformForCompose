@@ -1,4 +1,4 @@
-package com.laohu.study.platform.page.home
+package com.laohu.study.platform.page.home.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
