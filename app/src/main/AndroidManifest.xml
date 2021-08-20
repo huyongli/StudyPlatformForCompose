@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".page.main.MainActivity"
+            android:name=".page.home.HomeActivity"
             android:theme="@style/Theme.StudyPlatform"
             android:launchMode="singleTask" />
     </application>

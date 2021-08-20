@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.laohu.study.platform.extensions.handled
 import com.laohu.study.platform.helper.DBHelper
-import com.laohu.study.platform.page.main.MainActivity
+import com.laohu.study.platform.page.home.HomeActivity
 import com.laohu.study.platform.ui.component.Loading
 import com.laohu.study.platform.ui.theme.StudyPlatformTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +39,7 @@ class SplashActivity : ComponentActivity() {
         coroutineScope.launch {
             try {
                 dbHelper.initializeDatabase()
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                 finish()
             } catch (throwable: Throwable) {
                 throwable.handled()

@@ -1,4 +1,4 @@
-package com.laohu.study.platform.page.main.viewmodel
+package com.laohu.study.platform.page.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val courseRepository: CourseRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val courseRepository: CourseRepository) : ViewModel() {
     val coursePhase: LiveData<List<CoursePhase>> = courseRepository.queryCoursePhaseList()
 }

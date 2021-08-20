@@ -1,4 +1,4 @@
-package com.laohu.study.platform.page.main
+package com.laohu.study.platform.page.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.laohu.study.platform.R
 import com.laohu.study.platform.model.CoursePhase
-import com.laohu.study.platform.page.main.viewmodel.MainViewModel
+import com.laohu.study.platform.page.home.viewmodel.HomeViewModel
 import com.laohu.study.platform.ui.theme.StudyPlatformTheme
 import kotlinx.coroutines.launch
 
@@ -41,9 +41,7 @@ fun MainScreen() {
         modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
         drawerContent = {
-            DrawerScreen(onMenuChanged = {
-
-            })
+            DrawerScreen(onMenuChanged = {})
         },
         topBar = {
             val scope = rememberCoroutineScope()
@@ -86,18 +84,18 @@ fun MainTopAppBar(openDrawer: () -> Unit) {
 @Composable
 fun MainBottomNavigation(
     onBottomNavItemChanged: (CoursePhase) -> Unit,
-    mainViewModel: MainViewModel = viewModel()
+    homeViewModel: HomeViewModel = viewModel()
 ) {
     val currentOnBottomNavItemChanged by rememberUpdatedState(onBottomNavItemChanged)
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.primary,
         contentColor = Color.White
     ) {
-        val phases by mainViewModel.coursePhase.observeAsState(emptyList())
+        val phases by homeViewModel.coursePhase.observeAsState(emptyList())
         var currentIndex by rememberSaveable { mutableStateOf(0) }
         phases.forEachIndexed { index, phase ->
             BottomNavigationItem(
-                icon = { Icon(painterResource(R.drawable.ic_school), "")},
+                icon = { Icon(painterResource(R.drawable.ic_school), "") },
                 label = { Text(text = phase.phaseName) },
                 selected = currentIndex == index,
                 selectedContentColor = Color.White,
