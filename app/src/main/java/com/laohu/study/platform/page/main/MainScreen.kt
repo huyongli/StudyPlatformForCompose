@@ -29,7 +29,9 @@ fun MainScreen() {
         modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
         drawerContent = {
-            DrawerScreen()
+            DrawerScreen(onMenuChanged = {
+
+            })
         },
         topBar = {
             val scope = rememberCoroutineScope()
@@ -58,7 +60,7 @@ fun MainTopAppBar(openDrawer: () -> Unit) {
         },
         navigationIcon = {
             IconButton(onClick = openDrawer) {
-                Icon(Icons.Filled.Menu, null)
+                Icon(Icons.Filled.Menu, "")
             }
         },
     )
