@@ -15,12 +15,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,9 +51,7 @@ fun DrawerScreen(onMenuChanged: (DrawerMenu) -> Unit) {
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
         ) {
-            var currentMenu by remember {
-                mutableStateOf(DrawerMenu.Platform)
-            }
+            var currentMenu by rememberSaveable { mutableStateOf(DrawerMenu.Platform) }
             DrawerMenu.values().forEach { menu ->
                 Text(
                     modifier = Modifier

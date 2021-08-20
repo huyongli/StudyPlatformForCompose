@@ -2,6 +2,8 @@ package com.laohu.study.platform.page.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -12,13 +14,23 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.laohu.study.platform.R
+import com.laohu.study.platform.model.CoursePhase
+import com.laohu.study.platform.page.main.viewmodel.MainViewModel
 import com.laohu.study.platform.ui.theme.StudyPlatformTheme
 import kotlinx.coroutines.launch
 
@@ -39,6 +51,11 @@ fun MainScreen() {
                 scope.launch {
                     scaffoldState.drawerState.open()
                 }
+            })
+        },
+        bottomBar = {
+            MainBottomNavigation(onBottomNavItemChanged = {
+
             })
         },
         content = {
@@ -64,6 +81,36 @@ fun MainTopAppBar(openDrawer: () -> Unit) {
             }
         },
     )
+}
+
+@Composable
+fun MainBottomNavigation(
+    onBottomNavItemChanged: (CoursePhase) -> Unit,
+    mainViewModel: MainViewModel = viewModel()
+) {
+    val currentOnBottomNavItemChanged by rememberUpdatedState(onBottomNavItemChanged)
+    BottomNavigation(
+        backgroundColor = MaterialTheme.colors.primary,
+        contentColor = Color.White
+    ) {
+        val phases by mainViewModel.coursePhase.observeAsState(emptyList())
+        var currentIndex by rememberSaveable { mutableStateOf(0) }
+        phases.forEachIndexed { index, phase ->
+            BottomNavigationItem(
+                icon = { Icon(painterResource(R.drawable.ic_school), "")},
+                label = { Text(text = phase.phaseName) },
+                selected = currentIndex == index,
+                selectedContentColor = Color.White,
+                unselectedContentColor = Color.White.copy(0.4f),
+                onClick = {
+                    if (currentIndex != index) {
+                        currentIndex = index
+                        currentOnBottomNavItemChanged(phase)
+                    }
+                }
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)

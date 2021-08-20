@@ -7,10 +7,10 @@ import com.laohu.study.platform.model.CourseSubject
 import com.laohu.study.platform.model.CourseUnit
 import com.laohu.study.platform.model.CourseUnitCase
 import com.laohu.study.platform.repository.dao.CourseDao
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
-@ActivityScoped
+@ViewModelScoped
 class CourseRepository @Inject constructor(private val courseDao: CourseDao) {
     fun queryCoursePhaseList(): LiveData<List<CoursePhase>> = courseDao.queryCoursePhaseList()
 

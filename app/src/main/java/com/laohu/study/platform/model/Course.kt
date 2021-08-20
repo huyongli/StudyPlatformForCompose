@@ -65,16 +65,17 @@ data class CourseUnitCase(
     @ColumnInfo(name = "unit_case_guide_teacher")
     val caseGuideTeacher: String?,
     @ColumnInfo(name = "unit_case_thumb_url")
-    val caseThumbUrl: String,
+    val caseThumbUrl: String?,
     @ColumnInfo(name = "unit_code")
     val unitCode: String,
 ) {
     val videoUrl: String
         get() {
-            val start = caseThumbUrl.lastIndexOf("/")
-            val end = caseThumbUrl.lastIndexOf(".")
-            val fileName = caseThumbUrl.substring(start, end)
-            val videoUrlPrefix = caseThumbUrl.substring(0, start).replace("/pic", "/video")
+            val thumbUrl = caseThumbUrl ?: return ""
+            val start = thumbUrl.lastIndexOf("/")
+            val end = thumbUrl.lastIndexOf(".")
+            val fileName = thumbUrl.substring(start, end)
+            val videoUrlPrefix = thumbUrl.substring(0, start).replace("/pic", "/video")
             return if (fileName.endsWith(MP4)) {
                 "$videoUrlPrefix${fileName.replace(MP4, "")}.mp4"
             } else {

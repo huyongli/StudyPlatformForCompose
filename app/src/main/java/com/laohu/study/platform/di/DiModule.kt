@@ -17,12 +17,6 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-object SingletonModule {
-
-}
-
-@Module
 @InstallIn(ActivityComponent::class)
 object CoroutineModule {
 
