@@ -15,10 +15,10 @@ import java.io.OutputStream
 import javax.inject.Inject
 
 @ActivityScoped
-class DBHelper @Inject constructor(@ApplicationContext val context: Context) {
-    @DatabasePath
-    @Inject
-    lateinit var databasePath: String
+class DBHelper @Inject constructor(
+    @ApplicationContext private val context: Context,
+    @DatabasePath private val databasePath: String
+) {
     private val dbFile: File by lazy {
         File(databasePath)
     }

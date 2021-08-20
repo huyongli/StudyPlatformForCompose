@@ -10,8 +10,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.sharp.ArrowForward
+import androidx.compose.material.icons.sharp.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.laohu.study.platform.R
 import com.laohu.study.platform.extensions.circle
 import com.laohu.study.platform.model.DrawerMenu
+import com.laohu.study.platform.ui.component.ExpandableArrowPanel
 import com.laohu.study.platform.ui.theme.StudyPlatformTheme
 
 @Composable
@@ -71,6 +77,20 @@ fun DrawerScreen(onMenuChanged: (DrawerMenu) -> Unit) {
                     color = Color.Black
                 )
             }
+            ExpandableArrowPanel(
+                headerModifier = Modifier.padding(20.dp),
+                headerContent = {
+                    Text(text = "头部")
+                },
+                content = {
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        Text(text = "Content1", modifier = Modifier.padding(10.dp))
+                        Text(text = "Content2", modifier = Modifier.padding(10.dp))
+                        Text(text = "Content3", modifier = Modifier.padding(10.dp))
+                        Text(text = "Content4", modifier = Modifier.padding(10.dp))
+                    }
+                }
+            )
         }
     }
 }
